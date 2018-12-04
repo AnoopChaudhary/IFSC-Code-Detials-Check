@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<p>Example:- KARB0000001</p>
+<div>Enter IFSC Code: <input type="text" name="ifsc" id="ifsc"></div>
+<div id="resultarea"></div>
+<script>
+$(document).ready(function(){
+  $("#ifsc").on("keyup",function(){
+	var ifscTemp = $(this).val();
+	console.log(ifscTemp);
+	$.ajax({
+		url: "https://ifsc.razorpay.com/"+ifscTemp+"",
+		dataType:"json",
+		success: function(data){
+		$("#resultarea").html(
+			"BANK:"+data.BANK +"<br>"+
+			"IFSC:"+data.IFSC +"<br>"+
+			"BRANCH:"+data.BRANCH +"<br>"+
+			"ADDRESS:"+data.ADDRESS +"<br>"+
+			"CONTACT:"+data.CONTACT +"<br>"+
+			"CITY:"+data.CITY +"<br>"+
+			"DISTRICT:"+data.DISTRICT +"<br>"+
+			"STATE:"+data.STATE +"<br>");
+	    },
+	    error: function(){
+	    	$("#resultarea").html("Not Found!");
+	    }
+	});
+  });
+});
+
+</script>
+</body>
+</html>
